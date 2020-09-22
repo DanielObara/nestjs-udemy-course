@@ -1,6 +1,6 @@
 import { Jogador } from './interfaces/jogador.interface';
 import { CriarJogadorDto } from './dtos/criar-jogador.dto';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import * as uuid from "uuid";
 
 // Com essa notation sabemos que ele será agora uma provider 
@@ -14,13 +14,23 @@ export class JogadoresService {
 		const { email } = criaJogadorDto;
 		const jogadorEncontrado = await this.jogadores.find(jogador => jogador.email === email)
 
-		jogadorEncontrado ? await this.atualizar(jogadorEncontrado, criaJogadorDto)
-		 : 
-		await this.criar(criaJogadorDto);
+		jogadorEncontrado ?
+			await this.atualizar(jogadorEncontrado, criaJogadorDto)
+			:
+			await this.criar(criaJogadorDto);
 	}
 
 	async consultarTodosJogadores(): Promise<Jogador[]> {
 		return await this.jogadores;
+	}
+
+	async consultarJogadorPeloEmail(email: string): Promise<Jogador> {
+		const jogadorEncontrado = await this.jogadores.find(jogador => jogador.email === email)
+
+		if (!jogadorEncontrado) {
+			throw new NotFoundException(`Jogador com e-mail não ${email} localizado`)
+		}
+		return jogadorEncontrado;
 	}
 
 	private criar(criaJogadorDto: CriarJogadorDto): void {
