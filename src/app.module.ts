@@ -6,7 +6,7 @@ import { JogadoresModule } from './jogadores/jogadores.module';
   imports: [
     MongooseModule
       .forRoot('mongodb+srv://admin:admin@cluster0.xlozl.mongodb.net/test?retryWrites=true&w=majority',
-        { useMongoClient: true,
+        { 
           useCreateIndex: true,
           useUnifiedTopology: true,
           useFindAndModify: false
