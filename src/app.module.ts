@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { JogadoresModule } from './jogadores/jogadores.module';
-import { CategoriaModule } from './categorias/categorias.module';
+import { CategoriasModule } from './categorias/categorias.module';
 import { CategoriasController } from './categorias/categorias.controller';
 import { CategoriasService } from './categorias/categorias.service';
 
@@ -16,8 +16,6 @@ import { CategoriasService } from './categorias/categorias.service';
         }
       ),
     JogadoresModule,
-    CategoriaModule],
-  controllers: [CategoriasController],
-  providers: [CategoriasService],
+    CategoriasModule],
 })
 export class AppModule { }
