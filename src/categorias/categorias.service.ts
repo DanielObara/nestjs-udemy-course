@@ -19,4 +19,12 @@ export class CategoriasService {
 
 		return await categoriaCriada.save();
 	}
+
+	async consultarTodasCategorias(): Promise<Categoria[]> {
+		return await this.categoriaModel.find().exec()
+	}
+
+	async consultarCategoriaPorId(_id: string): Promise<Categoria> {
+		return await this.categoriaModel.findOne({ _id }).exec()
+	}
 }
